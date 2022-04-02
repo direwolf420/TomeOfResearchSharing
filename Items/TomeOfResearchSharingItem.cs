@@ -103,7 +103,7 @@ namespace TomeOfResearchSharing.Items
 					//color.A = Main.mouseTextColor;
 					tooltips.Add(new TooltipLine(Mod, "ResearchProgress", $"Unloaded Progress: {count}")
 					{
-						overrideColor = color
+						OverrideColor = color
 					});
 				}
 			}
