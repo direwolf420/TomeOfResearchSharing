@@ -80,7 +80,7 @@ namespace TomeOfResearchSharing.Items
 				tooltips.Add(new TooltipLine(Mod, "Transfer", "Use to transfer your current Journey Mode 'researched items' into the tome"));
 			}
 
-			tooltips.Add(new TooltipLine(Mod, "Apply", (Empty ? "Then another player can use" : "Use") + " to add the tome's 'researched items' to your Journey Mode 'researched items'"));
+			tooltips.Add(new TooltipLine(Mod, "Apply", (Empty ? "Then another player can use" : "Use") + " it to add the tome's 'researched items' to " + (Empty ? "their" : "your") + " Journey Mode 'researched items'"));
 
 			if (!Empty)
 			{
