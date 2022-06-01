@@ -1,6 +1,6 @@
 displayName = Tome of Research Sharing
 author = direwolf420
-version = 0.1.0.3
+version = 0.1.0.5
 hideCode = false
 hideResources = false
 includeSource = false
