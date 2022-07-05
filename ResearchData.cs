@@ -210,41 +210,41 @@ namespace TomeOfResearchSharing
 						}
 					}
 
-					writer.WriteVarInt(missingIDs.Count);
+					writer.Write7BitEncodedInt(missingIDs.Count);
 					foreach (var type in missingIDs)
 					{
-						writer.WriteVarInt(type);
+						writer.Write7BitEncodedInt(type);
 					}
 				}
 				else
 				{
-					writer.WriteVarInt(count);
+					writer.Write7BitEncodedInt(count);
 					foreach (var type in itemIDs)
 					{
-						writer.WriteVarInt(type);
+						writer.Write7BitEncodedInt(type);
 					}
 				}
 
 				//TODO optimization: split up ones with count = 0 into a list
-				writer.WriteVarInt(unloadedIDs.Count);
+				writer.Write7BitEncodedInt(unloadedIDs.Count);
 				foreach (var pair in unloadedIDs)
 				{
 					writer.Write((string)pair.Key);
 
-					writer.WriteVarInt(pair.Value.Count);
+					writer.Write7BitEncodedInt(pair.Value.Count);
 					foreach (var pair2 in pair.Value)
 					{
 						writer.Write((string)pair2.Name);
-						writer.WriteVarInt(pair2.Count);
+						writer.Write7BitEncodedInt(pair2.Count);
 					}
 				}
 
 				//TODO optimization: split up ones with count = 0 into a list
-				writer.WriteVarInt(pendingResearchableModdedIDs.Count);
+				writer.Write7BitEncodedInt(pendingResearchableModdedIDs.Count);
 				foreach (var pair in pendingResearchableModdedIDs)
 				{
-					writer.WriteVarInt(pair.Key);
-					writer.WriteVarInt(pair.Value);
+					writer.Write7BitEncodedInt(pair.Key);
+					writer.Write7BitEncodedInt(pair.Value);
 				}
 			}
 			finally
@@ -281,11 +281,11 @@ namespace TomeOfResearchSharing
 
 				if (reversed)
 				{
-					count = reader.ReadVarInt();
+					count = reader.Read7BitEncodedInt();
 					var missingIDs = new HashSet<int>();
 					for (int i = 0; i < count; i++)
 					{
-						missingIDs.Add(reader.ReadVarInt());
+						missingIDs.Add(reader.Read7BitEncodedInt());
 					}
 
 					foreach (var item in CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId.Keys)
@@ -298,34 +298,34 @@ namespace TomeOfResearchSharing
 				}
 				else
 				{
-					count = reader.ReadVarInt();
+					count = reader.Read7BitEncodedInt();
 					for (int i = 0; i < count; i++)
 					{
-						itemIDs.Add(reader.ReadVarInt());
+						itemIDs.Add(reader.Read7BitEncodedInt());
 					}
 				}
 
-				count = reader.ReadVarInt();
+				count = reader.Read7BitEncodedInt();
 				for (int i = 0; i < count; i++)
 				{
 					string modName = reader.ReadString();
 					unloadedIDs[modName] = new List<NameCountPair>();
 
-					int secondCount = reader.ReadVarInt();
+					int secondCount = reader.Read7BitEncodedInt();
 					for (int j = 0; j < secondCount; j++)
 					{
 						string name = reader.ReadString();
-						int countValue = reader.ReadVarInt();
+						int countValue = reader.Read7BitEncodedInt();
 						var pair = new NameCountPair(name, countValue);
 						unloadedIDs[modName].Add(pair);
 					}
 				}
 
-				count = reader.ReadVarInt();
+				count = reader.Read7BitEncodedInt();
 				for (int i = 0; i < count; i++)
 				{
-					int key = reader.ReadVarInt();
-					int value = reader.ReadVarInt();
+					int key = reader.Read7BitEncodedInt();
+					int value = reader.Read7BitEncodedInt();
 					pendingResearchableModdedIDs.Add(key, value);
 				}
 			}
