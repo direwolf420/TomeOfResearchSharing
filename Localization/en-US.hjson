@@ -1,0 +1,35 @@
+Mods: {
+	TomeOfResearchSharing: {
+		Items: {
+			TomeOfResearchSharingItem: {
+				DisplayName: Tome of Research Sharing
+
+				Tooltips: {
+					Transfer: Use it to transfer your current Journey Mode 'researched items' into the tome
+					ApplyEmpty: Then another player can use it to add the tome's 'researched items' to their Journey Mode 'researched items'
+					ApplyPopulated: Use it to add the tome's 'researched items' to your Journey Mode 'researched items'
+					FromPlayer: From: [c/{0}:{1}]
+					ResearchProgress: Progress: {0}/{1}
+					UnloadedProgress: Unloaded Progress: {0}
+				}
+
+				Status: {
+					NotJourneyMode: How did you get his item?
+					Stored: Stored researched items in the tome!
+					Applied: Applied researched items from the tome!
+				}
+			}
+		}
+
+		Configs: {
+			Config: {
+				DisplayName: Config
+
+				TransferUnloadedData: {
+					Label: Transfer Unloaded Data
+					Tooltip: Toggle if researched items from mods that are currently unloaded should be transferred aswell
+				}
+			}
+		}
+	}
+}

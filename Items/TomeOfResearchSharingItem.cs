@@ -37,8 +37,6 @@ namespace TomeOfResearchSharing.Items
 		public override void LoadData(TagCompound tag)
 		{
 			data = tag.Get<ResearchData>("data");
-			//BinaryWriter writer = new BinaryWriter(new MemoryStream(new byte[131070]));
-			//data.NetSend(writer);
 			playerName = tag.GetString("playerName");
 		}
 
@@ -55,11 +53,31 @@ namespace TomeOfResearchSharing.Items
 			playerName = reader.ReadString();
 		}
 
+		public override LocalizedText Tooltip => LocalizedText.Empty;
+
+		public static LocalizedText TransferText { get; private set; }
+		public static LocalizedText ApplyEmptyText { get; private set; }
+		public static LocalizedText ApplyPopulatedText { get; private set; }
+		public static LocalizedText FromPlayerText { get; private set; }
+		public static LocalizedText ResearchProgressText { get; private set; }
+		public static LocalizedText UnloadedProgressText { get; private set; }
+
+		public static LocalizedText NotJourneyModeText { get; private set; }
+		public static LocalizedText StoredText { get; private set; }
+		public static LocalizedText AppliedText { get; private set; }
+
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Tome of Research Sharing");
+			TransferText = this.GetLocalization("Tooltips.Transfer");
+			ApplyEmptyText = this.GetLocalization("Tooltips.ApplyEmpty");
+			ApplyPopulatedText = this.GetLocalization("Tooltips.ApplyPopulated");
+			FromPlayerText = this.GetLocalization("Tooltips.FromPlayer");
+			ResearchProgressText = this.GetLocalization("Tooltips.ResearchProgress");
+			UnloadedProgressText = this.GetLocalization("Tooltips.UnloadedProgress");
 
-			CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+			NotJourneyModeText = this.GetLocalization("Status.NotJourneyMode");
+			StoredText = this.GetLocalization("Status.Stored");
+			AppliedText = this.GetLocalization("Status.Applied");
 		}
 
 		public override void SetDefaults()
@@ -77,17 +95,18 @@ namespace TomeOfResearchSharing.Items
 		{
 			if (Empty)
 			{
-				tooltips.Add(new TooltipLine(Mod, "Transfer", "Use to transfer your current Journey Mode 'researched items' into the tome"));
+				tooltips.Add(new TooltipLine(Mod, "Transfer", TransferText.ToString()));
+				tooltips.Add(new TooltipLine(Mod, "Apply", ApplyEmptyText.ToString()));
 			}
-
-			tooltips.Add(new TooltipLine(Mod, "Apply", (Empty ? "Then another player can use" : "Use") + " it to add the tome's 'researched items' to " + (Empty ? "their" : "your") + " Journey Mode 'researched items'"));
 
 			if (!Empty)
 			{
-				tooltips.Add(new TooltipLine(Mod, "PlayerName", $"From: [c/{Color.Orange.Hex3()}:{playerName}]"));
-				tooltips.Add(new TooltipLine(Mod, "ResearchProgress", $"Progress: {data.ActiveCount}/{CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId.Count - TomeOfResearchSharing.vanillaDeprecated.Count}"));
+				tooltips.Add(new TooltipLine(Mod, "Apply", ApplyPopulatedText.ToString()));
 
-				List<KeyValuePair<string, List<NameCountPair>>> unloadedItems = data.GetUnloadedIDs().ToList();
+				tooltips.Add(new TooltipLine(Mod, "PlayerName", FromPlayerText.Format(Color.Orange.Hex3(), playerName)));
+				tooltips.Add(new TooltipLine(Mod, "ResearchProgress", ResearchProgressText.Format(data.ActiveCount, CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId.Count - TomeOfResearchSharing.vanillaDeprecated.Count)));
+
+				var unloadedItems = data.GetUnloadedIDs().ToList();
 
 				if (unloadedItems.Count > 0)
 				{
@@ -101,7 +120,7 @@ namespace TomeOfResearchSharing.Items
 					float pulse = Main.mouseTextColor / 255f;
 					Color color = Color.LightGray * pulse;
 					//color.A = Main.mouseTextColor;
-					tooltips.Add(new TooltipLine(Mod, "ResearchProgress", $"Unloaded Progress: {count}")
+					tooltips.Add(new TooltipLine(Mod, "UnloadedProgress", UnloadedProgressText.Format(count))
 					{
 						OverrideColor = color
 					});
@@ -114,7 +133,7 @@ namespace TomeOfResearchSharing.Items
 			CreateRecipe(1)
 				.AddIngredient(ItemID.Book)
 				.AddTile(TileID.Bookcases)
-				.AddCondition(new Recipe.Condition(NetworkText.FromLiteral("Journey Mode only"), (Recipe r) => Main.GameMode == GameModeID.Creative))
+				.AddCondition(Condition.InJourneyMode)
 				.Register();
 		}
 
@@ -127,7 +146,7 @@ namespace TomeOfResearchSharing.Items
 
 			if (Main.GameMode != GameModeID.Creative)
 			{
-				Main.NewText("How did you get his item?");
+				Main.NewText(NotJourneyModeText.ToString());
 				return true;
 			}
 
@@ -136,11 +155,11 @@ namespace TomeOfResearchSharing.Items
 				playerName = player.name;
 
 				//Set data
-				Main.NewText("Stored researched items in the tome!");
+				Main.NewText(StoredText.ToString());
 				SoundEngine.PlaySound(SoundID.Research);
 
 				List<int> researchedItems = new List<int>();
-				CreativeItemSacrificesCatalog.Instance.FillListOfItemsThatCanBeObtainedInfinitely(researchedItems);
+				Main.LocalPlayerCreativeTracker.ItemSacrifices.FillListOfItemsThatCanBeObtainedInfinitely(researchedItems);
 				var itemIDs = researchedItems.ToHashSet();
 
 				//Get unloaded items, reflection
@@ -175,7 +194,7 @@ namespace TomeOfResearchSharing.Items
 			}
 			else
 			{
-				Main.NewText("Applied researched items from the tome!");
+				Main.NewText(AppliedText.ToString());
 				SoundEngine.PlaySound(SoundID.ResearchComplete);
 
 				//var researchedItems = new HashSet<int>();

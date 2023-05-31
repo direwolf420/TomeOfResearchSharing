@@ -1,0 +1,15 @@
+[b]=== Journey Mode Only! ===[/b]
+
+This mod adds a single item called 'Tome of Research Sharing', allowing you to store your current Journey Mode 'researched items' to be able to share it with other players.
+
+Notes:
+* Partial research progress is only stored for modded items (because it's not set in stone, as mod developers may change the limits in their mods)
+* Using the tome to gain research for modded items also works if no other mods are loaded
+* Can be used in singleplayer aswell by storing the tome in a chest
+
+Recipe: 1 Book at any Bookcase.
+[hr][/hr]
+[b]Localization:[/b]
+If you want to add support for different languages, you are welcome to contribute localizations here: [b][url=https://github.com/direwolf420/TomeOfResearchSharing]GitHub[/url][/b]
+List of localization contributors:
+* None!

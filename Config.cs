@@ -10,8 +10,6 @@ namespace TomeOfResearchSharing
 
 		public static Config Instance => ModContent.GetInstance<Config>();
 
-		[Label("Transfer Unloaded Data")]
-		[Tooltip("Toggle if researched items from mods that are currently unloaded should be transferred aswell")]
 		[DefaultValue(false)]
 		public bool TransferUnloadedData;
 	}

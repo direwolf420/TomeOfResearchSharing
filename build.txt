@@ -1,8 +1,7 @@
 displayName = Tome of Research Sharing
 author = direwolf420
-version = 0.1.0.6
+version = 0.2
 hideCode = false
 hideResources = false
 includeSource = false
 buildIgnore = *.csproj, *.user, obj\*, bin\*, .vs\*, *.md
-includePDB = true
