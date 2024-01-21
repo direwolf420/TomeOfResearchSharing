@@ -1,6 +1,6 @@
 en-US, 13/13, 100%, missing 0
 de-DE, 0/13, 0%, missing 13
-it-IT, 0/13, 0%, missing 13
+it-IT, 13/13, 100%, missing 0
 fr-FR, 0/13, 0%, missing 13
 es-ES, 0/13, 0%, missing 13
 ru-RU, 13/13, 100%, missing 0

@@ -289,7 +289,7 @@ namespace TomeOfResearchSharing.Items
 			var unloadedPlayer = player.GetModPlayer<UnloadedPlayer>();
 
 			//public class UnloadedPlayer : ModPlayer -> internal IList<TagCompound> unloadedResearch;
-			FieldInfo info = typeof(UnloadedPlayer).GetField("unloadedResearch", BindingFlags.Instance | BindingFlags.NonPublic);
+			FieldInfo info = typeof(UnloadedPlayer).GetField("unloadedResearch", BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public);
 
 			object unloadedResearchObj = info.GetValue(unloadedPlayer);
 			if (unloadedResearchObj is IList<TagCompound> dummy)
