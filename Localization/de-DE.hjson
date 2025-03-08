@@ -1,35 +1,35 @@
 Mods: {
-	TomeOfResearchSharing: {
-		Items: {
-			TomeOfResearchSharingItem: {
-				// DisplayName: Tome of Research Sharing
+    TomeOfResearchSharing: {
+        Items: {
+            TomeOfResearchSharingItem: {
+                DisplayName: Tome of Research Sharing
 
-				Tooltips: {
-					// Transfer: Use it to transfer your current Journey Mode 'researched items' into the tome
-					// ApplyEmpty: Then another player can use it to add the tome's 'researched items' to their Journey Mode 'researched items'
-					// ApplyPopulated: Use it to add the tome's 'researched items' to your Journey Mode 'researched items'
-					// FromPlayer: From: [c/{0}:{1}]
-					// ResearchProgress: Progress: {0}/{1}
-					// UnloadedProgress: Unloaded Progress: {0}
-				}
+                Tooltips: {
+                    Transfer: Verwenden Sie es, um Ihre aktuellen Journey-Modus-‚erforschten Items‘ in das Buch zu übertragen
+                    ApplyEmpty: Ein anderer Spieler kann es dann verwenden, um die ‚erforschten Items‘ des Buchs zu seinem Journey-Modus-‚erforschten Items‘ hinzuzufügen
+                    ApplyPopulated: Verwenden Sie es, um die ‚erforschten Items‘ des Buchs zu Ihren Journey-Modus-‚erforschten Items‘ hinzuzufügen
+                    FromPlayer: Von: [c/{0}:{1}]
+                    ResearchProgress: Fortschritt: {0}/{1}
+                    UnloadedProgress: Nicht geladener Fortschritt: {0}
+                }
 
-				Status: {
-					// NotJourneyMode: How did you get his item?
-					// Stored: Stored researched items in the tome!
-					// Applied: Applied researched items from the tome!
-				}
-			}
-		}
+                Status: {
+                    NotJourneyMode: Wie haben Sie dieses Item erhalten?
+                    Stored: Erforschte Items im Buch gespeichert!
+                    Applied: Erforschte Items aus dem Buch angewendet!
+                }
+            }
+        }
 
-		Configs: {
-			Config: {
-				// DisplayName: Config
+        Configs: {
+            Config: {
+                DisplayName: Konfiguration
 
-				TransferUnloadedData: {
-					// Label: Transfer Unloaded Data
-					// Tooltip: Toggle if researched items from mods that are currently unloaded should be transferred aswell
-				}
-			}
-		}
-	}
+                TransferUnloadedData: {
+                    Label: Nicht geladene Daten übertragen
+                    Tooltip: Umschalten, ob erforschte Items aus momentan nicht geladenen Mods ebenfalls übertragen werden sollen
+                }
+            }
+        }
+    }
 }
