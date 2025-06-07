@@ -17,6 +17,7 @@ Mods: {
 					NotJourneyMode: Come hai ottenuto questo oggetto?
 					Stored: Oggetti ricercati memorizzati nel tomo!
 					Applied: Oggetti ricercati applicati dal tomo!
+					AppliedItems: Sono stati aggiunti i seguenti ricercati:
 				}
 			}
 		}
