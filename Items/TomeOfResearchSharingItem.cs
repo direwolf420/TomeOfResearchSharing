@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Text;
 using Terraria;
 using Terraria.Audio;
 using Terraria.GameContent.Creative;
@@ -65,6 +66,7 @@ namespace TomeOfResearchSharing.Items
 		public static LocalizedText NotJourneyModeText { get; private set; }
 		public static LocalizedText StoredText { get; private set; }
 		public static LocalizedText AppliedText { get; private set; }
+		public static LocalizedText AppliedItemsText { get; private set; }
 
 		public override void SetStaticDefaults()
 		{
@@ -78,6 +80,7 @@ namespace TomeOfResearchSharing.Items
 			NotJourneyModeText = this.GetLocalization("Status.NotJourneyMode");
 			StoredText = this.GetLocalization("Status.Stored");
 			AppliedText = this.GetLocalization("Status.Applied");
+			AppliedItemsText = this.GetLocalization("Status.AppliedItems");
 		}
 
 		public override void SetDefaults()
@@ -197,11 +200,18 @@ namespace TomeOfResearchSharing.Items
 				Main.NewText(AppliedText.ToString());
 				SoundEngine.PlaySound(SoundID.ResearchComplete);
 
-				//var researchedItems = new HashSet<int>();
+				var researchedItems = new bool[ItemLoader.ItemCount];
+				var alreadyResearchedItems = new bool[ItemLoader.ItemCount];
+				for (int i = 1; i < alreadyResearchedItems.Length; i++)
+				{
+					CreativeUI.GetSacrificeCount(i, out bool researched);
+					alreadyResearchedItems[i] = researched;
+				}
+
 				//Vanilla (+ this instance of item use modded items): Guaranteed researchability, research limits didn't change
 				foreach (var type in data.GetItemIDs())
 				{
-					//researchedItems.Add(type);
+					researchedItems[type] = true;
 					CreativeUI.ResearchItem(type);
 				}
 
@@ -209,7 +219,7 @@ namespace TomeOfResearchSharing.Items
 				foreach (var pair in data.GetPendingResearchableModdedIDs())
 				{
 					int type = pair.Key;
-					//researchedItems.Add(type);
+					researchedItems[type] = true;
 					int count = pair.Value;
 
 					int? remaining = CreativeUI.GetSacrificesRemaining(type);
@@ -219,6 +229,8 @@ namespace TomeOfResearchSharing.Items
 						CreativeUI.ResearchItem(type);
 					}
 				}
+
+				PrintNewItems(researchedItems, alreadyResearchedItems);
 
 				//var missingItems = new HashSet<int>();
 				//HashSet<int> allItems = CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId.Keys.ToHashSet();
@@ -275,6 +287,50 @@ namespace TomeOfResearchSharing.Items
 			}
 
 			return true;
+		}
+
+		private static void PrintNewItems(in bool[] researchedItems, in bool[] alreadyResearchedItems)
+		{
+			//NewText stops displaying a string past 10 lines, so make multiple messages
+			var sbs = new List<StringBuilder>
+			{
+				new StringBuilder()
+			};
+			int lineWrap = 0;
+			const int lineWrapMax = 20;
+			int lineCount = 0;
+			const int lineCountMax = 10;
+			for (int i = 1; i < researchedItems.Length; i++)
+			{
+				//Only list new ones
+				if (researchedItems[i] && !alreadyResearchedItems[i])
+				{
+					var sb = sbs[^1];
+					sb.Append($"[i:{i}] ");
+					lineWrap++;
+					if (lineWrap > lineWrapMax)
+					{
+						lineWrap = 0;
+						sb.AppendLine();
+
+						lineCount++;
+						if (lineCount > lineCountMax)
+						{
+							sbs.Add(new StringBuilder());
+							lineCount = 0;
+						}
+					}
+				}
+			}
+
+			if (sbs.Count > 0 && sbs[0].Length > 0)
+			{
+				Main.NewText(AppliedItemsText.ToString());
+				foreach (var sb in sbs)
+				{
+					Main.NewText(sb.ToString());
+				}
+			}
 		}
 
 		private bool TryGetUnloadedResearch(Player player, out IList<TagCompound> unloadedResearch)

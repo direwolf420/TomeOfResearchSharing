@@ -17,6 +17,7 @@ Mods: {
                     NotJourneyMode: Wie haben Sie dieses Item erhalten?
                     Stored: Erforschte Items im Buch gespeichert!
                     Applied: Erforschte Items aus dem Buch angewendet!
+                    AppliedItems: Die folgenden Items wurden hinzugefügt:
                 }
             }
         }

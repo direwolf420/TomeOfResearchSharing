@@ -17,6 +17,7 @@ Mods: {
 					// NotJourneyMode: How did you get his item?
 					// Stored: Stored researched items in the tome!
 					// Applied: Applied researched items from the tome!
+					// AppliedItems: The following items have been added:
 				}
 			}
 		}
