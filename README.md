@@ -23,3 +23,4 @@ Translate things that are in english and commented out (either via `//` or `/* *
 List of localization contributors:
 * Russian: **GodHybrid**
 * Italian: **Sea Noodle**
+* German: **Lighty**

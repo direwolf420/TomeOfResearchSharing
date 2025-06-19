@@ -1,36 +1,36 @@
 Mods: {
-    TomeOfResearchSharing: {
-        Items: {
-            TomeOfResearchSharingItem: {
-                DisplayName: Tome of Research Sharing
+	TomeOfResearchSharing: {
+		Items: {
+			TomeOfResearchSharingItem: {
+				DisplayName: Buch des Forschungsteilens
 
-                Tooltips: {
-                    Transfer: Verwenden Sie es, um Ihre aktuellen Journey-Modus-‚erforschten Items‘ in das Buch zu übertragen
-                    ApplyEmpty: Ein anderer Spieler kann es dann verwenden, um die ‚erforschten Items‘ des Buchs zu seinem Journey-Modus-‚erforschten Items‘ hinzuzufügen
-                    ApplyPopulated: Verwenden Sie es, um die ‚erforschten Items‘ des Buchs zu Ihren Journey-Modus-‚erforschten Items‘ hinzuzufügen
-                    FromPlayer: Von: [c/{0}:{1}]
-                    ResearchProgress: Fortschritt: {0}/{1}
-                    UnloadedProgress: Nicht geladener Fortschritt: {0}
-                }
+				Tooltips: {
+					Transfer: Verwenden Sie es, um Ihre aktuellen Journey-Modus-'erforschten Items' in das Buch zu übertragen
+					ApplyEmpty: Ein anderer Spieler kann es dann verwenden, um die 'erforschten Items' des Buchs zu seinem Journey-Modus-'erforschten Items' hinzuzufügen
+					ApplyPopulated: Verwenden Sie es, um die 'erforschten Items‘ des Buchs zu Ihren Journey-Modus-'erforschten Items' hinzuzufügen
+					FromPlayer: Von: [c/{0}:{1}]
+					ResearchProgress: Fortschritt: {0}/{1}
+					UnloadedProgress: Nicht geladener Fortschritt: {0}
+				}
 
-                Status: {
-                    NotJourneyMode: Wie haben Sie dieses Item erhalten?
-                    Stored: Erforschte Items im Buch gespeichert!
-                    Applied: Erforschte Items aus dem Buch angewendet!
-                    AppliedItems: Die folgenden Items wurden hinzugefügt:
-                }
-            }
-        }
+				Status: {
+					NotJourneyMode: Wie hast du dieses Item erhalten?
+					Stored: Erforschte Items im Buch gespeichert!
+					Applied: Erforschte Items aus dem Buch angewendet!
+					AppliedItems: Die folgenden Items wurden hinzugefügt:
+				}
+			}
+		}
 
-        Configs: {
-            Config: {
-                DisplayName: Konfiguration
+		Configs: {
+			Config: {
+				DisplayName: Konfiguration
 
-                TransferUnloadedData: {
-                    Label: Nicht geladene Daten übertragen
-                    Tooltip: Umschalten, ob erforschte Items aus momentan nicht geladenen Mods ebenfalls übertragen werden sollen
-                }
-            }
-        }
-    }
+				TransferUnloadedData: {
+					Label: Nicht geladene Daten übertragen
+					Tooltip: Umschalten, ob erforschte Items aus momentan nicht geladenen Mods ebenfalls übertragen werden sollen
+				}
+			}
+		}
+	}
 }

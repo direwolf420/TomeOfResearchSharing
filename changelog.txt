@@ -1,3 +1,3 @@
 v{ModVersion} has been published to {tMLBuildPurpose} tML v{tMLVersion}.
 
-* Added chat message with list of newly researched items when applying the tome.
+* Added german localization, thanks Lighty!

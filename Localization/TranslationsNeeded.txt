@@ -1,5 +1,5 @@
 en-US, 14/14, 100%, missing 0
-de-DE, 0/14, 0%, missing 14
+de-DE, 14/14, 100%, missing 0
 it-IT, 14/14, 100%, missing 0
 fr-FR, 0/14, 0%, missing 14
 es-ES, 0/14, 0%, missing 14
